@@ -1,0 +1,29 @@
+@import url(./_disabled/popup__button_disabled.css);
+@import url(./_type/popup__button_type_login.css);
+
+.popup__button {
+    align-self: center;
+    min-width: 358px;
+    min-height: 50px;
+    padding: 0;
+    font-size: 18px;
+    line-height: 1.2em;
+    text-align: center;
+    background: black;
+    border-radius: 2px;
+    color: white;
+    border: none;
+    transition: 0.7s ease;
+}
+
+.popup__button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 475px) {
+    .popup__button {
+        min-width: 200px;
+        min-height: 40px;
+    }
+}

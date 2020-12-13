@@ -1,0 +1,10 @@
+@import url(./__button/login__button.css);
+
+.login {
+    width: 100%;
+    background-color: #000000;
+    color: white;
+    margin: 0 auto;
+    margin-bottom: 112px;
+    font-family: 'Inter', 'Arial', sans-serif;
+}

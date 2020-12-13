@@ -1,0 +1,19 @@
+@import url(./_active/card__button-like_active.css);
+@import url(./_disable/card__button-like_disable.css);
+
+.card__button-like {
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 21px;
+    height: 19px;
+    border: none;
+    grid-area: button;
+    align-self: center;
+    transition: 0.7s ease;
+}
+
+.card__button-like:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}

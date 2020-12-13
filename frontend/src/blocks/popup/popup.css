@@ -1,0 +1,40 @@
+@import url(./__form/popup__form.css);
+@import url(./__form/_type/popup__form_type_avatar.css);
+@import url(./__form/_type/popup__form_type_confirm.css);
+@import url(./__form/_type/popup__form_type_login.css);
+@import url(./__card-contain/popup__card-contain.css);
+@import url(./__image/popup__image.css);
+@import url(./__title/popup__title.css);
+@import url(./__title/_type/popup__title_type_login.css);
+@import url(./__label/popup__label.css);
+@import url(./__input/popup__input.css);
+@import url(./__input/_type_error/popup__input_type_login.css);
+@import url(./__input/_type_error/popup__input_type_error.css);
+@import url(./__error/popup__error.css);
+@import url(./__error/_visible/popup__error_visible.css);
+
+@import url(./__button/popup__button.css);
+@import url(./__button/_disabled/popup__button_disabled.css);
+@import url(./__button/_type/popup__button_type_login.css);
+@import url(./__button-close/popup__button-close.css);
+@import url(./__container/popup__container.css);
+@import url(./__caption/popup__caption.css);
+
+
+
+.popup {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s, opacity 0.5s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    box-sizing: border-box;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}

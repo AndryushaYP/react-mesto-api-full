@@ -1,0 +1,19 @@
+@import url(./_type_error/popup__input_type_error.css);
+@import url(./_type_error/popup__input_type_login.css);
+
+.popup__input {
+    width: 100%;
+    max-width: 358px;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 1.2em;
+    padding-bottom: 13px;
+}
+
+@media screen and (max-width: 475px) {
+    .popup__input {
+        font-size: 12px;
+    }
+}

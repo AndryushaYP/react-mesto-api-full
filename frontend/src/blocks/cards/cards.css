@@ -1,0 +1,21 @@
+@import url(./__list/cards__list.css);
+@import url(./__list-item/cards__list-item.css);
+@import url(./__image/card__image.css);
+@import url(./__caption/card__caption.css);
+@import url(./__like-container/card__like-container.css);
+@import url(./__button-like/card__button-like.css);
+@import url(./__counter/card__like-counter.css);
+@import url(./__button-like/_active/card__button-like_active.css);
+@import url(./__delete/card__delete.css);
+
+.cards {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 48px;
+}
+
+@media screen and (max-width: 390px) {
+    .cards {
+        padding-top: 36px;
+    }
+}

@@ -1,0 +1,12 @@
+@import url(./_type/header__button_type_visible.css);
+@import url(./_type/header__button_type_invisible.css);
+
+.header__button {
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  margin-left: 24px;
+  align-self: center;
+  color: white;
+  text-decoration: none;
+}
