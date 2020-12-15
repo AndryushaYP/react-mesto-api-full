@@ -6,7 +6,7 @@ export default function Header({ email, onSignOut }) {
   return (
     <header className="header">
       <img src={logo} alt="Логотип Mesto" className="header__logo" />
-      <Route path="/home">
+      <Route path="/">
         <p className="header__email">
           {email}
           <Link

@@ -76,9 +76,10 @@ module.exports.getUserMe = (req, res, next) => {
 // Обновить профиль текущего пользователя
 
 module.exports.updateUserProfile = (req, res, next) => {
-  User.findByIdAndUpdate(req.user._id, { name: req.body.name, about: req.body.about })
+  User.findByIdAndUpdate(req.user._id, { name: req.body.name, about: req.body.about },
+    { new: true })
     .then((user) => {
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((err) => {
       customError(err, res, next);
@@ -88,9 +89,9 @@ module.exports.updateUserProfile = (req, res, next) => {
 // Обновить аватар текущего пользователя
 
 module.exports.updateUserAvatar = (req, res, next) => {
-  User.findByIdAndUpdate(req.user._id, { avatar: req.body.avatar })
+  User.findByIdAndUpdate(req.user._id, { avatar: req.body.avatar }, { new: true })
     .then((user) => {
-      res.send({ data: user });
+      res.send(user);
     })
     .catch((err) => {
       customError(err, res, next);

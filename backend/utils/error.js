@@ -4,7 +4,7 @@ const customError = (err, res, next) => {
     castError.statusCode = 404;
     next(castError);
   } else if (err.name === 'ValidationError') {
-    const validationError = new Error("Проверьте введённые данные");
+    const validationError = new Error(err.message);
     validationError.statusCode = 400;
     next(validationError);
   } else if (err.name === 'UnauthorizedError') {

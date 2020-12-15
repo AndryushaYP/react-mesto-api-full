@@ -5,7 +5,7 @@ export class Api {
   }
 
   getAllCardsList() {
-    return fetch(this._url, {
+    return fetch(`${this._url}/cards`, {
       method: "GET",
       headers: this._headers,
     }).then((res) => {
@@ -17,8 +17,8 @@ export class Api {
     });
   }
 
-  addCard({link, name}) {
-    return fetch(this._url, {
+  addCard({name, link}) {
+    return fetch(`${this._url}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({ link: link, name: name }),
@@ -32,7 +32,7 @@ export class Api {
   }
 
   getUserData() {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-15/users/me', {
+    return fetch(`${this._url}/users/me`, {
       method: "GET",
       headers: this._headers,
     }).then((res) => {
@@ -45,7 +45,7 @@ export class Api {
   }
 
   changeUserData({name, about}) {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-15/users/me', {
+    return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({name: name, about: about}),
@@ -59,7 +59,7 @@ export class Api {
   }
 
   changeUserAvatar({avatar}) {
-    return fetch('https://mesto.nomoreparties.co/v1/cohort-15/users/me/avatar', {
+    return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({avatar: avatar}),
@@ -73,7 +73,7 @@ export class Api {
   }
 
   deleteCard(id) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-15/cards/${id}`, {
+    return fetch(`${this._url}/cards/${id}`, {
       method: "DELETE",
       headers: this._headers,
     }).then((res) => {
@@ -87,7 +87,7 @@ export class Api {
 
   changeLikeCard(id, isLiked) {
     if(isLiked) {
-      return fetch(`https://mesto.nomoreparties.co/v1/cohort-15/cards/likes/${id}`, {
+      return fetch(`${this._url}/cards/${id}/likes`, {
       method: "PUT",
       headers: this._headers,
     }).then((res) => {
@@ -98,7 +98,7 @@ export class Api {
       return Promise.reject(`Ошибка: ${res.status}`);
     });
     } else {
-      return fetch(`https://mesto.nomoreparties.co/v1/cohort-15/cards/likes/${id}`, {
+      return fetch(`${this._url}/cards/${id}/likes`, {
       method: "DELETE",
       headers: this._headers,
     }).then((res) => {
@@ -141,10 +141,10 @@ export class Api {
 
 const api = new Api({
   // Экземпляр класса АПИ
-  url: "https://mesto.nomoreparties.co/v1/cohort-15/cards",
+  url: "http://localhost:3003",
   headers: {
-    authorization: "a0bff86e-f64d-4da1-b51a-ea82a126a932",
     "Content-Type": "application/json",
+    "Authorization": `Bearer ${localStorage.jwt}`
   },
 });
 

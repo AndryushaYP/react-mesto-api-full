@@ -22,7 +22,13 @@ function App() {
   const [userData, setUserData] = React.useState({});
   const [email, setEmail] = React.useState(false);
   const history = useHistory();
-
+  const [infoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({});
+  const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
   /* Проверяем токен при загрузке */
   React.useEffect(() => {
     tokenCheck();
@@ -56,7 +62,7 @@ function App() {
         if (data.token) {
           localStorage.setItem("jwt", data.token);
           setLoggedIn(true);
-          history.push("/home");
+          history.push("/");
         }
       })
       .catch((err) => {
@@ -69,9 +75,8 @@ function App() {
     if (jwt) {
       auth.getContent(jwt).then((res) => {
         if (res) {
-          console.log(res);
           setUserData({
-            email: res.data.email,
+            email: res.email,
           });
           setLoggedIn(true);
         }
@@ -85,14 +90,6 @@ function App() {
     setLoggedIn(false);
     history.push("/signin");
   };
-
-  const [infoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
-  const [currentUser, setCurrentUser] = React.useState({});
-  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     Promise.all([api.getUserData(), api.getAllCardsList()])
@@ -117,7 +114,7 @@ function App() {
   }, []);
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some((i) => i === currentUser._id);
     api
       .changeLikeCard(card._id, !isLiked)
       .then((newCard) => {
@@ -211,7 +208,7 @@ function App() {
       <Switch>
         <CurrentUserContext.Provider value={currentUser}>
           <ProtectedRoute
-            path="/home"
+            path="/"
             loggedIn={loggedIn}
             component={Main}
             onCardClick={handleCardClick}
@@ -231,7 +228,7 @@ function App() {
             <Register onRegister={handleRegister} />
           </Route>
 
-          <Route>{loggedIn ? <Redirect to="/home" /> : <Redirect to="/signin" />}</Route>
+          <Route>{loggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}</Route>
           <InfoTooltip
             isOpen={infoTooltipOpen}
             onClose={closeAllPopup}

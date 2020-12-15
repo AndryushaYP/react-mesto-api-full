@@ -20,11 +20,11 @@ router.post('/signin', validateUserRequest, login);
 
 router.post('/signup', validateUserRequest, createUser);
 
+router.patch("/users/me", auth, updateUserProfile);
+
 router.get("/users/me", auth, getUserMe);
 
-router.patch("/users/me", validateUserRequest, auth, updateUserProfile);
-
-router.patch("/users/me/avatar", validateUserRequest, auth, updateUserAvatar);
+router.patch("/users/me/avatar", auth, updateUserAvatar);
 
 router.get("/users/:id", validateParams, auth, getUser);
 
