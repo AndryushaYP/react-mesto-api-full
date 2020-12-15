@@ -34,6 +34,7 @@ function App() {
     tokenCheck();
   }, []);
 
+  console.log(currentUser)
   /* Регистрация пользователя */
   const handleRegister = (password, email) => {
     auth
