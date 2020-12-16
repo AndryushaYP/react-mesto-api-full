@@ -114,7 +114,7 @@ export class Api {
 
 const api = new Api({
   // Экземпляр класса АПИ
-  url: "http://localhost:3003",
+  url: "https://api.tanger.students.nomoredomains.icu",
   headers: {
     "Content-Type": "application/json",
     Authorization: `Bearer ${localStorage.jwt}`,
