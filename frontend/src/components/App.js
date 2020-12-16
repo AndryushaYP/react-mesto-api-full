@@ -19,7 +19,7 @@ import * as auth from "../utils/auth.js";
 function App() {
   /* Авторизация/регистрация */
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [userData, setUserData] = React.useState({});
+  const [userData, setUserData] = React.useState({ email: "", password: "" });
   const [email, setEmail] = React.useState(false);
   const history = useHistory();
   const [infoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
@@ -33,16 +33,16 @@ function App() {
   React.useEffect(() => {
     tokenCheck();
   }, []);
-
-  console.log(currentUser)
   /* Регистрация пользователя */
   const handleRegister = (password, email) => {
     auth
       .register(password, email)
       .then((data) => {
-        if (data.data.email) {
+        if (data.email) {
+          setCurrentUser(data);
           history.push("/signin");
           setEmail(true);
+          console.log(data)
         }
       })
       .catch((err) => {
@@ -96,7 +96,7 @@ function App() {
     Promise.all([api.getUserData(), api.getAllCardsList()])
       .then((res) => {
         const [dataUser, cardData] = res;
-
+        console.log(res)
         setCurrentUser(dataUser);
 
         const item = cardData.map((cardEl) => ({

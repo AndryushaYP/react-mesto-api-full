@@ -17,7 +17,7 @@ export class Api {
     });
   }
 
-  addCard({name, link}) {
+  addCard({ name, link }) {
     return fetch(`${this._url}/cards`, {
       method: "POST",
       headers: this._headers,
@@ -44,11 +44,11 @@ export class Api {
     });
   }
 
-  changeUserData({name, about}) {
+  changeUserData({ name, about }) {
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({name: name, about: about}),
+      body: JSON.stringify({ name: name, about: about }),
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -58,11 +58,11 @@ export class Api {
     });
   }
 
-  changeUserAvatar({avatar}) {
+  changeUserAvatar({ avatar }) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
       headers: this._headers,
-      body: JSON.stringify({avatar: avatar}),
+      body: JSON.stringify({ avatar: avatar }),
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -86,57 +86,30 @@ export class Api {
   }
 
   changeLikeCard(id, isLiked) {
-    if(isLiked) {
+    if (isLiked) {
       return fetch(`${this._url}/cards/${id}/likes`, {
-      method: "PUT",
-      headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
+        method: "PUT",
+        headers: this._headers,
+      }).then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
 
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+        return Promise.reject(`Ошибка: ${res.status}`);
+      });
     } else {
       return fetch(`${this._url}/cards/${id}/likes`, {
-      method: "DELETE",
-      headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
+        method: "DELETE",
+        headers: this._headers,
+      }).then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
 
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
+        return Promise.reject(`Ошибка: ${res.status}`);
+      });
+    }
   }
-}
-  
-
-  /*addLikeCard(id) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-15/cards/likes/${id}`, {
-      method: "PUT",
-      headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
-  }
-
-  deleteLikeCard(id) {
-    return fetch(`https://mesto.nomoreparties.co/v1/cohort-15/cards/likes/${id}`, {
-      method: "DELETE",
-      headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    });
-  }*/
 }
 
 const api = new Api({
@@ -144,7 +117,7 @@ const api = new Api({
   url: "http://localhost:3003",
   headers: {
     "Content-Type": "application/json",
-    "Authorization": `Bearer ${localStorage.jwt}`
+    Authorization: `Bearer ${localStorage.jwt}`,
   },
 });
 
