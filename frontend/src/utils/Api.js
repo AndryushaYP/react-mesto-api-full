@@ -7,7 +7,10 @@ export class Api {
   getAllCardsList() {
     return fetch(`${this._url}/cards`, {
       method: "GET",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.jwt}`
+      }
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -34,7 +37,10 @@ export class Api {
   getUserData() {
     return fetch(`${this._url}/users/me`, {
       method: "GET",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.jwt}`
+      }
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -117,7 +123,7 @@ const api = new Api({
   url: "https://api.tanger.students.nomoredomains.icu",
   headers: {
     "Content-Type": "application/json",
-    Authorization: `Bearer ${localStorage.jwt}`,
+    "Authorization": `Bearer ${localStorage.jwt}`,
   },
 });
 

@@ -93,7 +93,8 @@ function App() {
   };
 
   React.useEffect(() => {
-    Promise.all([api.getUserData(), api.getAllCardsList()])
+    
+      Promise.all([api.getUserData(), api.getAllCardsList()])
       .then((res) => {
         const [dataUser, cardData] = res;
         console.log(res)
@@ -112,7 +113,9 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+    
+    
+  }, [loggedIn]);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i === currentUser._id);
