@@ -14,5 +14,7 @@
 * Webpack
 * Express
 * Mongoose
+
+Публичный IP-адрес сервера - 178.154.228.15
   
 [Mesto-React](http://tanger.students.nomoredomains.icu)
