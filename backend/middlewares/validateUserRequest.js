@@ -1,6 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
 
-const validateUserRequest = celebrate({
+module.exports.validateUserRequest = celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2),
@@ -10,4 +10,10 @@ const validateUserRequest = celebrate({
   }).unknown(true),
 });
 
-module.exports = validateUserRequest;
+module.exports.validateUserRequestPatch = celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().min(2).max(30),
+    about: Joi.string().min(2),
+    avatar: Joi.string(),
+  }).unknown(true),
+});

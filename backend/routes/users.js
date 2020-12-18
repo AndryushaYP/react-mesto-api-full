@@ -2,7 +2,7 @@ const router = require("express").Router();
 
 const auth = require('../middlewares/auth.js');
 
-const validateUserRequest = require('../middlewares/validateUserRequest.js');
+const { validateUserRequest, validateUserRequestPatch } = require('../middlewares/validateUserRequest.js');
 
 const validateParams = require('../middlewares/validateParams.js');
 
@@ -20,11 +20,11 @@ router.post('/signin', validateUserRequest, login);
 
 router.post('/signup', validateUserRequest, createUser);
 
-router.get("/users/me", auth, getUserMe);
+router.get("/users/me", validateParams, auth, getUserMe);
 
-router.patch("/users/me", auth, updateUserProfile);
+router.patch("/users/me", validateUserRequestPatch, auth, updateUserProfile);
 
-router.patch("/users/me/avatar", auth, updateUserAvatar);
+router.patch("/users/me/avatar", validateUserRequestPatch, auth, updateUserAvatar);
 
 router.get("/users/:id", validateParams, auth, getUser);
 

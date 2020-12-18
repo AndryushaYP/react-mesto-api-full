@@ -14,7 +14,7 @@ const {
 
 const auth = require('../middlewares/auth.js');
 
-router.get("/cards", auth, getCards);
+router.get("/cards", validateParams, auth, getCards);
 
 router.post("/cards", validateCardsRequest, auth, createCard);
 
