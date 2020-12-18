@@ -10,7 +10,7 @@ const customError = require("../utils/error.js");
 module.exports.getUsers = (req, res, next) => {
   User.find()
     .then((data) => {
-      res.send(data);
+      res.status(200).send(data);
     })
     .catch((err) => {
       customError(err, res, next);
@@ -23,7 +23,7 @@ module.exports.getUser = (req, res, next) => {
   const { id } = req.params;
   User.findById(id)
     .then((user) => {
-      res.send(user);
+      res.status(200).send(user);
     })
     .catch((err) => {
       customError(err, res, next);
@@ -41,7 +41,7 @@ module.exports.createUser = (req, res, next) => {
       email: req.body.email,
       password: hash,
     }))
-    .then((user) => res.send(user))
+    .then((user) => res.status(200).send(user))
     .catch((err) => {
       customError(err, res, next);
     });
@@ -54,7 +54,7 @@ module.exports.login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign({ _id: user._id }, 'some-secret-key', { expiresIn: '7d' });
-      res.send({ token });
+      res.status(200).send({ token });
     })
     .catch((err) => {
       customError(err, res, next);
@@ -66,7 +66,7 @@ module.exports.login = (req, res, next) => {
 module.exports.getUserMe = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
-      res.send(user);
+      res.status(200).send(user);
     })
     .catch((err) => {
       customError(err, res, next);
@@ -79,7 +79,7 @@ module.exports.updateUserProfile = (req, res, next) => {
   User.findByIdAndUpdate(req.user._id, { name: req.body.name, about: req.body.about },
     { new: true })
     .then((user) => {
-      res.send(user);
+      res.status(200).send(user);
     })
     .catch((err) => {
       customError(err, res, next);
@@ -91,7 +91,7 @@ module.exports.updateUserProfile = (req, res, next) => {
 module.exports.updateUserAvatar = (req, res, next) => {
   User.findByIdAndUpdate(req.user._id, { avatar: req.body.avatar }, { new: true })
     .then((user) => {
-      res.send(user);
+      res.status(200).send(user);
     })
     .catch((err) => {
       customError(err, res, next);

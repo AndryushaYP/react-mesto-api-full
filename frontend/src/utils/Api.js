@@ -23,7 +23,10 @@ export class Api {
   addCard({ name, link }) {
     return fetch(`${this._url}/cards`, {
       method: "POST",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.jwt}`
+      },
       body: JSON.stringify({ link: link, name: name }),
     }).then((res) => {
       if (res.ok) {
@@ -53,7 +56,10 @@ export class Api {
   changeUserData({ name, about }) {
     return fetch(`${this._url}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.jwt}`
+      },
       body: JSON.stringify({ name: name, about: about }),
     }).then((res) => {
       if (res.ok) {
@@ -67,7 +73,10 @@ export class Api {
   changeUserAvatar({ avatar }) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.jwt}`
+      },
       body: JSON.stringify({ avatar: avatar }),
     }).then((res) => {
       if (res.ok) {
@@ -81,7 +90,10 @@ export class Api {
   deleteCard(id) {
     return fetch(`${this._url}/cards/${id}`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.jwt}`
+      },
     }).then((res) => {
       if (res.ok) {
         return res.json();
@@ -95,7 +107,10 @@ export class Api {
     if (isLiked) {
       return fetch(`${this._url}/cards/${id}/likes`, {
         method: "PUT",
-        headers: this._headers,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.jwt}`
+        }
       }).then((res) => {
         if (res.ok) {
           return res.json();
@@ -106,7 +121,10 @@ export class Api {
     } else {
       return fetch(`${this._url}/cards/${id}/likes`, {
         method: "DELETE",
-        headers: this._headers,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.jwt}`
+        }
       }).then((res) => {
         if (res.ok) {
           return res.json();

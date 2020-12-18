@@ -56,7 +56,6 @@ function App() {
   /* Авторизация */
   const handleLogin = (password, email) => {
     console.log(password, email);
-    setUserData({ email: email });
     auth
       .login(password, email)
       .then((data) => {
@@ -99,7 +98,7 @@ function App() {
         const [dataUser, cardData] = res;
         console.log(res)
         setCurrentUser(dataUser);
-
+        setUserData({ email: dataUser.email })
         const item = cardData.map((cardEl) => ({
           link: cardEl.link,
           name: cardEl.name,

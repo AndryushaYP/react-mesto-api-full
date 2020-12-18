@@ -4,8 +4,6 @@ const bcrypt = require("bcryptjs");
 
 const isEmail = require('validator/lib/isEmail');
 
-// eslint-disable-next-line no-useless-escape
-
 const userShema = new mongoose.Schema({
   name: {
     type: String,
@@ -25,6 +23,11 @@ const userShema = new mongoose.Schema({
     type: String,
     required: false,
     default: "https://pictures.s3.yandex.net/resources/jacques-cousteau_1604399756.png",
+    validate: {
+      // eslint-disable-next-line no-useless-escape
+      validator: (v) => /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(v),
+      message: 'Введите ссылку',
+    },
   },
   email: {
     type: String,
