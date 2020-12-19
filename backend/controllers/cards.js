@@ -48,8 +48,9 @@ module.exports.likeCard = (req, res, next) => {
   Card.findById(req.params.id)
     .then((card) => {
       if (!card) {
-        res.status(404).send({ message: 'Нет такой карточки' });
+        return res.status(404).send({ message: 'Нет такой карточки' });
       }
+      return card;
     });
   Card.findByIdAndUpdate(req.params.id,
     { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
