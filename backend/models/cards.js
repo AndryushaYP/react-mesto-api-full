@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const cardShema = new mongoose.Schema({
   name: {
@@ -11,8 +11,7 @@ const cardShema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      // eslint-disable-next-line no-useless-escape
-      validator: (v) => /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/.test(v),
+      validator: (v) => /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)/.test(v),
       message: 'Введите ссылку',
     },
   },

@@ -1,9 +1,9 @@
-const bcrypt = require("bcryptjs");
+const bcrypt = require('bcryptjs');
 
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
-const User = require("../models/user");
-const customError = require("../utils/error.js");
+const User = require('../models/user');
+const customError = require('../utils/error.js');
 
 // Список всех пользователей
 
@@ -23,6 +23,9 @@ module.exports.getUser = (req, res, next) => {
   const { id } = req.params;
   User.findById(id)
     .then((user) => {
+      if (!user) {
+        res.status(404).send({ message: 'Нет пользователя с таким ID' });
+      }
       res.status(200).send(user);
     })
     .catch((err) => {
@@ -33,17 +36,24 @@ module.exports.getUser = (req, res, next) => {
 // Регистрация
 
 module.exports.createUser = (req, res, next) => {
-  bcrypt.hash(req.body.password, 10)
-    .then((hash) => User.create({
-      name: req.body.name,
-      about: req.body.about,
-      avatar: req.body.avatar,
-      email: req.body.email,
-      password: hash,
-    }))
-    .then((user) => res.status(200).send(user))
-    .catch((err) => {
-      customError(err, res, next);
+  const { email } = req.body;
+  User.findOne({ email })
+    .then((data) => {
+      if (data) {
+        res.status(409).send({ message: 'Пользователь с таким email уже существует' });
+      }
+      bcrypt.hash(req.body.password, 10)
+        .then((hash) => User.create({
+          name: req.body.name,
+          about: req.body.about,
+          avatar: req.body.avatar,
+          email: req.body.email,
+          password: hash,
+        }))
+        .then((user) => res.status(200).send(user))
+        .catch((err) => {
+          customError(err, res, next);
+        });
     });
 };
 
@@ -76,6 +86,9 @@ module.exports.getUserMe = (req, res, next) => {
 // Обновить профиль текущего пользователя
 
 module.exports.updateUserProfile = (req, res, next) => {
+  if (!req.body.name || !req.body.about) {
+    res.status(400).send({ message: 'Заполните оба поля' });
+  }
   User.findByIdAndUpdate(req.user._id, { name: req.body.name, about: req.body.about },
     { new: true })
     .then((user) => {
@@ -89,6 +102,9 @@ module.exports.updateUserProfile = (req, res, next) => {
 // Обновить аватар текущего пользователя
 
 module.exports.updateUserAvatar = (req, res, next) => {
+  if (!req.body.avatar) {
+    res.status(400).send({ message: 'Введите ссылку на аватар' });
+  }
   User.findByIdAndUpdate(req.user._id, { avatar: req.body.avatar }, { new: true })
     .then((user) => {
       res.status(200).send(user);

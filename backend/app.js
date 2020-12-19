@@ -1,15 +1,15 @@
-const express = require("express");
-const mongoose = require("mongoose");
+const express = require('express');
+const mongoose = require('mongoose');
 const { errors } = require('celebrate');
-const bodyParser = require("body-parser");
-const cors = require("cors");
-const routes = require("./routes/index.js");
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const routes = require('./routes/index.js');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const PORT = process.env.PORT || 3003;
 const app = express();
 
-mongoose.connect("mongodb://localhost:27017/mestodb", {
+mongoose.connect('mongodb://localhost:27017/mestodb', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false,
@@ -30,11 +30,15 @@ app.get('/crash-test', () => {
 
 app.use(routes);
 
+app.use('*', (req, res) => {
+  res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
+});
+
 app.use(errorLogger);
 
 app.use(errors());
 
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
   res.status(err.statusCode).send({ message: err.message });
 });
 
