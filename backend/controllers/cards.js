@@ -30,16 +30,18 @@ module.exports.deleteCard = (req, res, next) => {
   Card.findById(req.params.id)
     .then((card) => {
       if (!card) {
-        return res.status(404).send({ message: 'Нет такой карточки' });
+        const error = new Error('Нет такой карточки');
+        error.statusCode = 404;
+        throw error;
       } if (!card.owner.equals(req.user._id)) {
-        return res.status(403).send({ message: 'У вас нет таких прав' });
+        const error = new Error('У вас нет таких прав');
+        error.statusCode = 403;
+        throw error;
       }
       return Card.findByIdAndRemove(req.params.id);
     })
     .then((card) => res.status(200).send({ data: card }))
-    .catch((err) => {
-      customError(err, res, next);
-    });
+    .catch(next);
 };
 
 // Добавить лайк
@@ -48,18 +50,19 @@ module.exports.likeCard = (req, res, next) => {
   Card.findById(req.params.id)
     .then((card) => {
       if (!card) {
-        return res.status(404).send({ message: 'Нет такой карточки' });
+        const error = new Error('Нет такой карточки');
+        error.statusCode = 404;
+        throw error;
       }
-      return card;
-    });
-  Card.findByIdAndUpdate(req.params.id,
-    { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
-    { new: true })
-    .then((card) => {
-      res.status(200).send(card);
+      return Card.findByIdAndUpdate(req.params.id,
+        { $addToSet: { likes: req.user._id } }, // добавить _id в массив, если его там нет
+        { new: true })
+        .then((newCard) => {
+          res.status(200).send(newCard);
+        });
     })
     .catch((err) => {
-      customError(err, res, next);
+      next(err);
     });
 };
 
@@ -69,16 +72,18 @@ module.exports.dislikeCard = (req, res, next) => {
   Card.findById(req.params.id)
     .then((card) => {
       if (!card) {
-        res.status(404).send({ message: 'Нет такой карточки' });
+        const error = new Error('Нет такой карточки');
+        error.statusCode = 404;
+        throw error;
       }
-    });
-  Card.findByIdAndUpdate(req.params.id,
-    { $pull: { likes: req.user._id } }, // убрать _id из массива
-    { new: true })
-    .then((card) => {
-      res.status(200).send(card);
+      return Card.findByIdAndUpdate(req.params.id,
+        { $pull: { likes: req.user._id } }, // убрать _id из массива
+        { new: true })
+        .then((newCard) => {
+          res.status(200).send(newCard);
+        });
     })
     .catch((err) => {
-      customError(err, res, next);
+      next(err);
     });
 };
