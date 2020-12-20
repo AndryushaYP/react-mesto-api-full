@@ -6,7 +6,7 @@ const cors = require('cors');
 const routes = require('./routes/index.js');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const PORT = process.env.PORT || 3004;
+const PORT = process.env.PORT || 3003;
 const app = express();
 
 mongoose.connect('mongodb://localhost:27017/mestodb', {
