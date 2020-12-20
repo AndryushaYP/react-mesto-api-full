@@ -30,10 +30,6 @@ app.get('/crash-test', () => {
 
 app.use(routes);
 
-app.use('*', (req, res) => {
-  res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
-});
-
 app.use(errorLogger);
 
 app.use(errors());
